@@ -1,0 +1,52 @@
+#!/bin/sh
+
+##
+# font-file-info-best-path:
+# given a font file, output the best path.
+#
+# Syntax:
+#
+#     font-file-info-best-path <font-file>
+#
+# Example:
+#
+#   $ font-file-to-path ALPHA-BRAVO-BI.OTF
+#   Alpha_Bravo/Alpha_Bravo_Bold_Italic.otf
+#
+# The best path syntax is:
+#
+#     <best-family>/<best-name>.<best-extension>
+#
+# ## Path piece format
+#
+# The path piece format is:
+#
+#    * Alphanumeric characters are OK.
+#
+#    * All other characters are converted to underscores.
+#
+#    * Omit leading/trailing underscores.
+#
+#    * Merge successive underscores.
+#
+# ## Tracking
+#
+# * Command: font-file-info-best-path
+# * Version: 2.0.0
+# * Created: 2015-12-19
+# * Updated: 20120-03-25
+# * Command: font-file-to-ext
+# * License: GPL
+# * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+set -euf
+file="$1"
+
+safe_path_piece(){
+    printf '%s' | sed -e 's/[^[:alnum:]]\{1,\}/_/g; s/^_//; s/_$//'
+}
+
+best_family=$(font-file-info-best-family "$file")
+best_name=$(font-file-info-best-name "$file")
+best_extension=$(font-file-info-best-extension "$file")
+printf '%s/%s.%s' $(safe_path_piece "$best_family") $(safe_path_piece "$best_name") $(safe_path_piece "$best_extension")

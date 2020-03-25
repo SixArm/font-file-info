@@ -1,0 +1,36 @@
+#!/bin/sh
+
+##
+# font-file-info-best-ext:
+# given a font file, output the best extension.
+#
+# Syntax:
+#
+#     font-file-info-best-extension <font-file>
+#
+# Example:
+#
+#     $ font-file-info-best-extension ALPHA-BRAVO-BI.OTF
+#     otf
+#
+# ## Implementation
+#
+# This script currently just use the existing file extension,
+# and converts it to lowercase. This works for us for now.
+#
+# TODO: improve the logic to read the font file info,
+# which is necessary when the font file extension is missing,
+# or something unexpected.
+#
+# ## Tracking
+#
+# * Command: font-file-info-best-extension
+# * Version: 2.0.0
+# * Created: 2015-12-19
+# * Updated: 2020-03-25
+# * License: GPL
+# * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+set -euf
+file="$1"
+basename "$file" | sed 's/.*\.//' | tr '[:upper:]' '[:lower:]'

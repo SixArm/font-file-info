@@ -1,0 +1,39 @@
+#!/bin/sh
+
+##
+# font-file-info:
+# given a font file, and a field name, output the field.
+#
+# Syntax:
+#
+#     font-file-info <font-file>
+#
+# Example:
+#
+#     $ font-file-info ALPHA-BRAVO-BI.OTF 'preferred name'
+#     Alpha Bravo Bold Italic
+#
+# ## Implementation
+#
+# This script is implemented on OS X by using `otfinfo`.
+# To get this, use `brew install lcdf-typetools`.
+#
+# To Do:
+#
+#   * Implement on Linux and Windows
+#
+#   * Get other font fields
+#
+# ## Tracking
+#
+# * Command: font-file-info
+# * Version: 2.0.0
+# * Created: 2015-12-19
+# * Updated: 2020-03-25
+# * License: GPL
+# * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+set -euf
+file="$1"
+field="$2"
+otfinfo --info "$file" | grep -i "^$field: " | sed 's/^[^:]*:[[:space:]]*//'
