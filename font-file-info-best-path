@@ -10,8 +10,8 @@
 #
 # Example:
 #
-#   $ font-file-to-path ALPHA-BRAVO-BI.OTF
-#   Alpha_Bravo/Alpha_Bravo_Bold_Italic.otf
+#   $ font-file-to-path ALPHA_BRAVO_BI.OTF
+#   Alpha-Bravo/Alpha-Bravo-Bold-Italic.otf
 #
 # The best path syntax is:
 #
@@ -21,32 +21,32 @@
 #
 # The path piece format is:
 #
-#    * Alphanumeric characters are OK.
+#    * Preserve alphanumeric characters.
 #
-#    * All other characters are converted to underscores.
+#    * Convert all other characters to hyphens.
 #
-#    * Omit leading/trailing underscores.
+#    * Merge successive hyphens.
 #
-#    * Merge successive underscores.
+#    * Delete leading/trailing hyphens.
+#
 #
 # ## Tracking
 #
 # * Command: font-file-info-best-path
-# * Version: 2.0.0
+# * Version: 3.0.0
 # * Created: 2015-12-19
-# * Updated: 20120-03-25
-# * Command: font-file-to-ext
-# * License: GPL
+# * Updated: 2023-05-18T11:38:47Z
+# * License: GPL-2.0 or GPL-3.0 or contact us for more
 # * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 ##
 set -euf
 file="$1"
 
-safe_path_piece(){
-    printf '%s' | sed -e 's/[^[:alnum:]]\{1,\}/_/g; s/^_//; s/_$//'
+safe_path_part(){
+    printf '%s' "$1" | sed 's/[^[:alnum:]]/-/g; s/---*/-/g; s/^-//; s/-$//;'
 }
 
 best_family=$(font-file-info-best-family "$file")
 best_name=$(font-file-info-best-name "$file")
 best_extension=$(font-file-info-best-extension "$file")
-printf '%s/%s.%s' $(safe_path_piece "$best_family") $(safe_path_piece "$best_name") $(safe_path_piece "$best_extension")
+printf '%s/%s.%s' $(safe_path_part "$best_family") $(safe_path_part "$best_name") $(safe_path_part "$best_extension")

@@ -10,7 +10,7 @@
 #
 # Example:
 #
-#     $ font-file-info ALPHA-BRAVO-BI.OTF 'preferred name'
+#     $ font-file-info ALPHA_BRAVO_BI.OTF 'preferred name'
 #     Alpha Bravo Bold Italic
 #
 # ## Implementation
@@ -27,10 +27,10 @@
 # ## Tracking
 #
 # * Command: font-file-info
-# * Version: 2.0.0
+# * Version: 3.0.0
 # * Created: 2015-12-19
-# * Updated: 2020-03-25
-# * License: GPL
+# * Updated: 2023-05-18T11:38:47Z
+# * License: GPL-2.0 or GPL-3.0 or contact us for more
 # * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 ##
 set -euf
