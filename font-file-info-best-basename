@@ -1,21 +1,21 @@
 #!/bin/sh
 
 ##
-# font-file-info-best-path:
-# given a font file, output the best path.
+# font-file-info-best-basename:
+# given a font file, output the best basename.
 #
 # Syntax:
 #
-#     font-file-info-best-path <font-file>
+#     font-file-info-best-basename <font-file>
 #
 # Example:
 #
-#     $ font-file-info-best-path ALPHA_BRAVO_BI.OTF
-#     Alpha-Bravo/Alpha-Bravo-Bold-Italic.otf
+#     $ font-file-info-best-basename ALPHA_BRAVO_BI.OTF
+#     Alpha-Bravo-Bold-Italic.otf
 #
-# The best path syntax is:
+# The best basename syntax is:
 #
-#     <best-family>/<best-name>.<best-extension>
+#     <best-name>.<best-extension>
 #
 # ## Path format
 #
@@ -32,7 +32,7 @@
 #
 # ## Tracking
 #
-# * Command: font-file-info-best-path
+# * Command: font-file-info-best-basename
 # * Version: 3.0.0
 # * Created: 2015-12-19
 # * Updated: 2023-05-18T11:38:47Z
@@ -46,7 +46,6 @@ safe_path_part(){
     printf '%s' "$1" | sed 's/[^[:alnum:]]/-/g; s/---*/-/g; s/^-//; s/-$//;'
 }
 
-best_family=$(font-file-info-best-family "$file")
 best_name=$(font-file-info-best-name "$file")
 best_extension=$(font-file-info-best-extension "$file")
-printf '%s/%s.%s' $(safe_path_part "$best_family") $(safe_path_part "$best_name") $(safe_path_part "$best_extension")
+printf '%s.%s' $(safe_path_part "$best_name") $(safe_path_part "$best_extension")

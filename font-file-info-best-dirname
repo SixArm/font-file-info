@@ -1,21 +1,21 @@
 #!/bin/sh
 
 ##
-# font-file-info-best-path:
-# given a font file, output the best path.
+# font-file-info-best-dirname:
+# given a font file, output the best dirname.
 #
 # Syntax:
 #
-#     font-file-info-best-path <font-file>
+#     font-file-info-best-dirname <font-file>
 #
 # Example:
 #
-#     $ font-file-info-best-path ALPHA_BRAVO_BI.OTF
-#     Alpha-Bravo/Alpha-Bravo-Bold-Italic.otf
+#     $ font-file-info-best-dirname ALPHA_BRAVO_BI.OTF
+#     Alpha-Bravo
 #
-# The best path syntax is:
+# The best dirname syntax is:
 #
-#     <best-family>/<best-name>.<best-extension>
+#     <best-family>
 #
 # ## Path format
 #
@@ -32,7 +32,7 @@
 #
 # ## Tracking
 #
-# * Command: font-file-info-best-path
+# * Command: font-file-info-best-dirname
 # * Version: 3.0.0
 # * Created: 2015-12-19
 # * Updated: 2023-05-18T11:38:47Z
@@ -47,6 +47,4 @@ safe_path_part(){
 }
 
 best_family=$(font-file-info-best-family "$file")
-best_name=$(font-file-info-best-name "$file")
-best_extension=$(font-file-info-best-extension "$file")
-printf '%s/%s.%s' $(safe_path_part "$best_family") $(safe_path_part "$best_name") $(safe_path_part "$best_extension")
+printf '%s' $(safe_path_part "$best_family")
